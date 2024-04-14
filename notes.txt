@@ -1,0 +1,7 @@
+for int i = 1 - 10
+  generate 10 C i combos 
+
+
+  time savign idea. check back to front becasue most combos will be front to back. somehwere in there you can flip it based on the number of the first cvombo generated
+
+
