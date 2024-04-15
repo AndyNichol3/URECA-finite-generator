@@ -1,6 +1,8 @@
 #include "type.h"
 // todo list
 // user input validation for METHOD
+// add user input from file.
+// write code to generate adjaxcency martix
 
 int main() {
 
