@@ -6,6 +6,8 @@
 
 int main() {
 
+  data GraphData;
+
   int METHOD;
   // if method == 0; OLD
   // if methof == 1; IC
@@ -15,8 +17,7 @@ int main() {
 
   // clear txt file for safe keeping
   clearTextFile();
-  data GraphData;
-
+  
   // itterate through the number of nodes in the graph
   // this gives us all possible solutions
   for (int r = 0; r < GraphData.graphNodes; r++) {
@@ -44,6 +45,8 @@ int main() {
     // open the read file to reaccess data
     fstream read;
     read.open("combo.txt");
+
+    cout << "Write complete: opened for read" << endl;
 
     // gather info from the txt file
     while (!read.eof()) {
@@ -75,7 +78,7 @@ int main() {
 
       // neighborhood data structure
       // an array of vectors. the vector contains the index of the detectors
-      vector<int> Array_neighborhood[10];
+      vector<int> Array_neighborhood[GraphData.graphNodes];
 
       // generate the neighborhoods
       // cout << "ADDING " << endl;

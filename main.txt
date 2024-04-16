@@ -1,0 +1,24 @@
+import numpy as np
+#pip inisall numpy
+# Number of nodes in one dimension
+n = 5
+
+# Initialize the adjacency matrix
+adj_matrix = np.zeros((n*n, n*n))
+
+# Fill the adjacency matrix
+for i in range(n):
+    for j in range(n):
+        # Current node
+        node = i * n + j
+        # Neighboring nodes
+        right = i * n + (j + 1) % n
+        left = i * n + (j - 1) % n
+        up = ((i - 1) % n) * n + j
+        down = ((i + 1) % n) * n + j
+        # Update the adjacency matrix
+        adj_matrix[node, [right, left, up, down]] = 1
+
+#print(adj_matrix)
+for row in adj_matrix:
+  print(" ".join(str(int(val)) for val in row))

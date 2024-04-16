@@ -9,22 +9,35 @@
 
 using namespace std;
 
+const int MAX_SIZE = 50;
+
 // this current is the petersens grph representation
 class data {
 public:
-  const int Graph[10][10] = {
-
-      {0, 1, 0, 0, 1, 1, 0, 0, 0, 0}, {1, 0, 1, 0, 0, 0, 1, 0, 0, 0},
-      {0, 1, 0, 1, 0, 0, 0, 1, 0, 0}, {0, 0, 1, 0, 1, 0, 0, 0, 1, 0},
-      {1, 0, 0, 1, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0, 1, 1, 0},
-      {0, 1, 0, 0, 0, 0, 0, 0, 1, 1}, {0, 0, 1, 0, 0, 1, 0, 0, 0, 1},
-      {0, 0, 0, 1, 0, 1, 1, 0, 0, 0}, {0, 0, 0, 0, 1, 0, 1, 1, 0, 0},
-
-  };
-  int graphI = 10;
-  int graphJ = 10;
-  int graphNodes = 10;
+  int Graph[MAX_SIZE][MAX_SIZE];
+  int graphI = 0;
+  int graphJ = 0;
+  int graphNodes = 0;
   int totalCombos = 0;
+
+  data() {
+    cout << "constructor called" << endl;  
+    fstream inFile;
+    inFile.open("input.txt");
+
+    inFile >> graphI >> graphJ;
+
+
+    for (int i = 0; i < graphI; i++) {
+      for (int j = 0; j < graphJ; j++) {
+        inFile >> Graph[i][j];
+  
+      }
+    }
+
+    inFile.close();
+    graphNodes = graphI; 
+  }
 };
 
 void FindCombinations(int inputArray[], int combinationArray[], int start,
