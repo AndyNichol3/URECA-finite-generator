@@ -9,15 +9,19 @@ int main() {
   data GraphData;
 
   int METHOD;
+  int DETECTION;
   // if method == 0; OLD
   // if methof == 1; IC
 
   cout << "WHAT IS OUR WORKING METHOD?? 0 FOR OLD, 1 FOR IC: " << endl;
   cin >> METHOD;
 
+  cout << "ADD FAULT TOLERANCY?? 0 no or 1 yes:" << endl;
+  cin >> DETECTION;
+
   // clear txt file for safe keeping
   clearTextFile();
-  
+
   // itterate through the number of nodes in the graph
   // this gives us all possible solutions
   for (int r = 0; r < GraphData.graphNodes; r++) {
@@ -78,7 +82,9 @@ int main() {
 
       // neighborhood data structure
       // an array of vectors. the vector contains the index of the detectors
-      vector<int> Array_neighborhood[GraphData.graphNodes];
+
+      // GraphData.graphNodes
+      vector<int> Array_neighborhood[10];
 
       // generate the neighborhoods
       // cout << "ADDING " << endl;
@@ -108,45 +114,115 @@ int main() {
       // check for valid solution
       // sort the vectors, if any are empty
       // solution is invalid
-      bool ValidSolution = true;
-      for (auto i : Array_neighborhood) {
-        sort(i.begin(), i.end());
-        if (i.size() == 0) {
-          ValidSolution = false;
-          break;
-        }
-      }
-      if (!ValidSolution) {
-        continue;
-      }
 
-      // check for valid solution
-      // check every array against the other arrays
       bool solution = true;
-      int iTally = 0;
-      for (auto i : Array_neighborhood) {
-        if (!solution) {
-          break;
-        }
 
-        int jTally = 0;
-        for (auto j : Array_neighborhood) {
-          // dont compare against its self
-          if (iTally == jTally) {
-            jTally++;
-            continue;
-          }
-          // compare
-          if (i == j) {
-            solution = false;
-          }
-          jTally++;
-          if (!solution) {
+      if (DETECTION == 0) {
+        bool ValidSolution = true;
+        for (auto i : Array_neighborhood) {
+          sort(i.begin(), i.end());
+          if (i.size() == 0) {
+            ValidSolution = false;
             break;
           }
         }
+        if (!ValidSolution) {
+          continue;
+        }
 
-        iTally++;
+        // check for valid solution
+        // check every array against the other arrays
+        // bool sloution = true;
+        int iTally = 0;
+        for (auto i : Array_neighborhood) {
+          if (!solution) {
+            break;
+          }
+
+          int jTally = 0;
+          for (auto j : Array_neighborhood) {
+            // dont compare against its self
+            if (iTally == jTally) {
+              jTally++;
+              continue;
+            }
+            // compare
+            if (i == j) {
+              solution = false;
+            }
+            jTally++;
+            if (!solution) {
+              break;
+            }
+          }
+
+          iTally++;
+        }
+      }
+
+      else if (DETECTION == 1) {
+        // ADD 2 DISTINGUSIGN FAULT TOLERANCE
+        bool ValidSolution = true;
+        for (auto i : Array_neighborhood) {
+          sort(i.begin(), i.end());
+          if (i.size() < 2) {
+            ValidSolution = false;
+            break;
+          }
+        }
+        if (!ValidSolution) {
+          continue;
+        }
+
+        // working in here
+
+        // working with vectors of larger than size 2
+        // now we check for the validity of the solution
+
+        // check all the arrays againts them selves
+        // if the difference between them is not at at least 2 distinct
+        // not a solution
+
+        int iTally = 0;
+        for (auto i : Array_neighborhood) {
+          if (!solution) {
+            break;
+          }
+
+          sort(i.begin(), i.end());
+
+          int jTally = 0;
+          for (auto j : Array_neighborhood) {
+            // dont compare against its self
+            if (iTally == jTally) {
+              jTally++;
+              continue;
+            }
+
+            sort(j.begin(), j.end());
+            vector<int> unisonVector;
+
+            // add only the not common elements
+            set_symmetric_difference(i.begin(), i.end(), j.begin(), j.end(), 
+                                     back_inserter(unisonVector));  
+
+            if(unisonVector.size() < 2){
+              solution = false; 
+              break; 
+            } else {
+              solution = true; 
+            }
+            // compare
+            // code goes here
+
+            jTally++;
+            if (!solution) {
+              break;
+            }
+          }
+
+          iTally++;
+        }
       }
 
       // if the solution is valid, print

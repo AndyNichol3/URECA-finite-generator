@@ -4,8 +4,10 @@
 
   5110 combos generated for petersens 
 
-  Test with different dimensions of taurus graph 
+  
 
+ 
+  
   Try to do king grid taurus  
 
   Implement redundant OLD (2 domination 2 distinguishing)  
